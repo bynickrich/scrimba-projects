@@ -1,0 +1,13 @@
+{
+  "name": "solo-gold-digger",
+  "version": "1.0.0",
+  "description": "Solo project thats part of Scrimba's Fullstack Path to learn server side events and general POST request with a Node.js backend.",
+  "license": "ISC",
+  "author": "Nick Richardson",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  }
+}

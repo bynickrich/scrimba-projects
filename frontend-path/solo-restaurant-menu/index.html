@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <!-- Google Font - Smythe -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Smythe&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Main App CSS -->
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="force-mobile">
+      <header>
+        <h1>Jimmy's Diner</h1>
+        <p>The best burgers and pizzas in town.</p>
+      </header>
+
+      <div class="content">
+        <!-- Contains all menu items -->
+        <section id="menu"></section>
+
+        <!-- Total & Checkout -->
+        <footer>
+          <h3>Your Order</h3>
+          <div class="cart" id="cart"></div>
+          <div class="total-price">
+            <h2>Total price:</h2>
+            <span class="dots"></span>
+            <p id="total"></p>
+          </div>
+          <button class="checkout-btn" id="checkout-btn">Checkout</button>
+        </footer>
+
+        <div class="thanks">
+          <h2>Thank you for your purchase</h2>
+        </div>
+      </div>
+
+      <!-- Payment Dialog -->
+      <dialog id="paymentDialog">
+        <h3>Payment Info</h3>
+        <form>
+          <label for="name">Full Name</label>
+          <input type="text" name="name" id="name" required />
+          <label for="cardNumber">Card Number</label>
+          <input
+            type="text"
+            name="cardNumber"
+            id="cardNumber"
+            placeholder="1234 5678 1234 5678"
+          />
+          <label for="cvv">CVV</label>
+          <input type="text" id="cvv" required />
+          <button id="payment-btn">Pay</button>
+        </form>
+      </dialog>
+    </div>
+    <script src="index.js" type="module"></script>
+  </body>
+</html>
