@@ -1,3 +1,5 @@
+import getGoldPrice from "../data/getGoldPrice.js";
+
 export const invest = async (req, res) => {
   try {
     let body = "";
@@ -6,10 +8,23 @@ export const invest = async (req, res) => {
     }
     const submission = JSON.parse(body);
 
-    console.log(submission);
+    if (!submission.amount) throw new Error("No purchase amount received");
+
+    const goldPricePerOunce = getGoldPrice();
+    const purchaseAmount = Number(submission.amount);
+    const ounces = purchaseAmount / goldPricePerOunce;
+
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ success: true, data: submission }));
+    res.end(
+      JSON.stringify({
+        success: true,
+        data: {
+          purchasedOunces: ounces,
+          currentGoldPrice: goldPricePerOunce,
+        },
+      }),
+    );
   } catch (error) {
     res.statusCode = 401;
     res.end("Error with submission");
