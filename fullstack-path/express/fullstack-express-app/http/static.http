@@ -1,0 +1,6 @@
+### GET request to example server
+
+# Ensures that static assets are being servered from the public folder
+GET http://localhost:8000
+
+###

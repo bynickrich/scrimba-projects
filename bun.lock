@@ -3,8 +3,12 @@
   "workspaces": {
     "": {
       "name": "scrimba-projects",
+      "dependencies": {
+        "expre": "^0.1.1",
+      },
       "devDependencies": {
         "@types/bun": "latest",
+        "prettier": "^3.8.1",
       },
       "peerDependencies": {
         "typescript": "^5",
@@ -678,6 +682,8 @@
     "estraverse": ["estraverse@5.3.0", "", {}, "sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA=="],
 
     "esutils": ["esutils@2.0.3", "", {}, "sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g=="],
+
+    "expre": ["expre@0.1.1", "", {}, "sha512-tQ6ywHoyPqXfUluVw+q1gxrnvkVqqNiZK0My8+WrzdEvHdgxAn6c3sRJ7a7HAmJfQQk7F3XiXNTmtsJaXEKSjA=="],
 
     "fake-xml-http-request": ["fake-xml-http-request@2.1.2", "", {}, "sha512-HaFMBi7r+oEC9iJNpc3bvcW7Z7iLmM26hPDmlb0mFwyANSsOQAtJxbdWsXITKOzZUyMYK0zYCv3h5yDj9TsiXg=="],
 
