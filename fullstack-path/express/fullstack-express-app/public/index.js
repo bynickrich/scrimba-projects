@@ -42,12 +42,12 @@ function renderProducts(products) {
  * Fetches and displays all products on initial page load.
  */
 async function init() {
-  populateGenreSelect();
+  await populateGenreSelect();
   const products = await getProducts();
   renderProducts(products);
 }
 
-init();
+await init();
 
 // ===== Genre Dropdown =====
 
@@ -83,9 +83,9 @@ async function applySearchFilter() {
 
 // ===== Event Listeners =====
 
-document.getElementById("search-input").addEventListener("input", (e) => {
+document.getElementById("search-input").addEventListener("input", async (e) => {
   e.preventDefault();
-  applySearchFilter();
+  await applySearchFilter();
 });
 
 // prevent 'enter' from submitting
@@ -93,9 +93,9 @@ document.getElementById("search-input").addEventListener("submit", (e) => {
   e.preventDefault();
 });
 
-document.querySelector("form").addEventListener("submit", (e) => {
+document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault();
-  applySearchFilter(); // your function to run the search
+  await applySearchFilter(); // your function to run the search
 });
 
 document
