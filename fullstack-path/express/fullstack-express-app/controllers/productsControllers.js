@@ -17,10 +17,10 @@ export async function getProducts(req, res) {
     const db = await dbConnection();
 
     let query = `SELECT * FROM products`;
-    const params = []
+    const params = [];
 
     if (req.query.genre) {
-      query+= ` WHERE genre = ?`
+      query += ` WHERE genre = ?`;
       params.push(req.query.genre);
     }
 
