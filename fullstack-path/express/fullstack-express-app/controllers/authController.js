@@ -1,4 +1,5 @@
 import validator from "validator";
+import dbConnection from "../database/DB_CONSTS";
 
 export async function registerUser(req, res) {
   const required = ["name", "email", "username", "password"];
@@ -26,5 +27,27 @@ export async function registerUser(req, res) {
     });
   }
 
-  console.log("Payload Complete and Cleaned", payload);
+  const db = await dbConnection();
+  const query = `SELECT username FROM users WHERE username = ? OR email = ?`;
+  const testUnique = await db.all(query, [payload.username, payload.email]);
+
+  if (testUnique.length) {
+    return res.status(400).json({ error: `Email or username already in use.` });
+  }
+
+  // TODO: Password needs hashed before inserting.
+
+  try {
+    const { name, email, username, password } = payload;
+    await db.run(
+      `INSERT INTO users (name, email, username, password) VALUES (?,?,?,?)`,
+      [name, email, username, password],
+    );
+
+    res.status(201).json({ message: "User registered" });
+  } catch (e) {
+    res.status(500).json({ error: `Registration failed: ${e}` });
+  } finally {
+    await db.close();
+  }
 }
