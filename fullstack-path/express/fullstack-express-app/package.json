@@ -4,7 +4,9 @@
   "author": "Nick Richardson",
   "main": "server.js",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "validator": "^13.15.26"
@@ -12,8 +14,12 @@
   "description": "Scrimba fullstack express class project",
   "license": "ISC",
   "scripts": {
-    "dev": "bun --watch server.js",
+    "dev": "op run --env-file=.env -- bun --watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/express-session": "^1.18.2"
+  }
 }

@@ -1,5 +1,13 @@
 import validator from "validator";
 import dbConnection from "../database/DB_CONSTS";
+import bcrypt from "bcrypt";
+
+/**
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @returns
+ */
 
 export async function registerUser(req, res) {
   const required = ["name", "email", "username", "password"];
@@ -35,14 +43,18 @@ export async function registerUser(req, res) {
     return res.status(400).json({ error: `Email or username already in use.` });
   }
 
-  // TODO: Password needs hashed before inserting.
-
   try {
     const { name, email, username, password } = payload;
-    await db.run(
+
+    // Hash the password before inserting
+    const hashed = await bcrypt.hash(password, 10);
+
+    const result = await db.run(
       `INSERT INTO users (name, email, username, password) VALUES (?,?,?,?)`,
-      [name, email, username, password],
+      [name, email, username, hashed],
     );
+
+    req.session.userId = result.lastID;
 
     res.status(201).json({ message: "User registered" });
   } catch (e) {
@@ -51,3 +63,5 @@ export async function registerUser(req, res) {
     await db.close();
   }
 }
+
+export async function loginUser(req, res) {}
