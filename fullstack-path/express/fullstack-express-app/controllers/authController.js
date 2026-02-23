@@ -2,13 +2,6 @@ import validator from "validator";
 import dbConnection from "../database/DB_CONSTS";
 import bcrypt from "bcrypt";
 
-/**
- *
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- * @returns
- */
-
 export async function registerUser(req, res) {
   const required = ["name", "email", "username", "password"];
   const payload = req.body;
