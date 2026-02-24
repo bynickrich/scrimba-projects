@@ -1,20 +1,24 @@
 import dbConnection from "../database/DB_CONSTS.js";
 
 export async function getGenres(_, res) {
+  let db;
   try {
-    const db = await dbConnection();
+    db = await dbConnection();
 
     const query = `SELECT DISTINCT genre FROM products`;
     const data = await db.all(query);
     return res.status(200).json(data.map((item) => item.genre));
   } catch (e) {
     res.status(500).json({ error: "Failed to fetch genres", details: e });
+  } finally {
+    if (db) await db.close();
   }
 }
 
 export async function getProducts(req, res) {
+  let db;
   try {
-    const db = await dbConnection();
+    db = await dbConnection();
 
     let query = `SELECT * FROM products`;
     const params = [];
@@ -34,5 +38,7 @@ export async function getProducts(req, res) {
     return res.status(200).json(data);
   } catch (e) {
     res.status(500).json({ error: "Failed to fetch products", details: e });
+  } finally {
+    if (db) await db.close();
   }
 }
