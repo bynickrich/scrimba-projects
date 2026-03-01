@@ -1,4 +1,4 @@
-import dbConnection from "../database/DB_CONSTS";
+import dbConnection from "../database/DB_CONSTS.js";
 export async function getCurrentUser(req, res) {
   let db;
   try {
@@ -12,7 +12,7 @@ export async function getCurrentUser(req, res) {
       req.session.userId,
     ]);
 
-    res.status(201).json({ isLoggedIn: true, name: user.name });
+    res.json({ isLoggedIn: true, name: user.name });
   } catch (e) {
     console.error("getCurrentUser error:", e);
     res.status(500).json({ error: "Internal server error" });

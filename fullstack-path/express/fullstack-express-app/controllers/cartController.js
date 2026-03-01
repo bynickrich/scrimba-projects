@@ -1,14 +1,8 @@
-import dbConnection from "../database/DB_CONSTS";
+import dbConnection from "../database/DB_CONSTS.js";
 
 export async function addToCart(req, res) {
   let db;
   try {
-    if (!req.session.userId) {
-      return res
-        .status(401)
-        .json({ message: "You must be logged in to ad items to your cart" });
-    }
-
     const { productId } = req.body;
 
     db = await dbConnection();
@@ -18,9 +12,7 @@ export async function addToCart(req, res) {
     ]);
 
     if (!getItemDetails) {
-      return res
-        .status(404)
-        .json({ message: "No product with that id exists" });
+      return res.status(404).json({ error: "No product with that id exists" });
     }
 
     const checkCart = await db.get(
@@ -54,15 +46,12 @@ export async function getCartCount(req, res) {
   try {
     db = await dbConnection();
 
-    // TODO: Refactor to use SQL sum syntax instead of returning all table items
-    const query = `SELECT * FROM cart_items WHERE user_id = ?`;
-    const params = [req.session.userId];
-    const results = await db.all(query, params);
+    const result = await db.get(
+      `SELECT COALESCE(SUM(quantity), 0) AS totalItems FROM cart_items WHERE user_id = ?`,
+      [req.session.userId],
+    );
 
-    const totalItems =
-      results.reduce((acc, item) => acc + item.quantity, 0) || 0;
-
-    res.json({ totalItems });
+    res.json({ totalItems: result.totalItems });
   } catch (err) {
     res.status(500).json({ error: `Getting cart items failed: ${err}` });
   } finally {
@@ -81,7 +70,7 @@ export async function getAll(req, res) {
     const params = [req.session.userId];
     const items = await db.all(query, params);
 
-    res.json({ items: items });
+    res.json({ items });
   } catch (err) {
     res.status(500).json({ error: `Failed to fetch cart items: ${err}` });
   } finally {
@@ -99,7 +88,7 @@ export async function deleteItem(req, res) {
     const itemId = parseInt(req.params.itemId, 10);
 
     if (isNaN(itemId)) {
-      return res.status(404).json({ message: "Invalid item ID" });
+      return res.status(400).json({ error: "Invalid item ID" });
     }
 
     const item = await db.get(
@@ -108,7 +97,7 @@ export async function deleteItem(req, res) {
     );
 
     if (!item) {
-      return res.status(400).json({ message: "Item not found" });
+      return res.status(404).json({ error: "Item not found" });
     }
 
     // Delete item from cart

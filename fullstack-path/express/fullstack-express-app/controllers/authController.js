@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import validator from "validator";
-import dbConnection from "../database/DB_CONSTS";
+import dbConnection from "../database/DB_CONSTS.js";
 
 /**
  * @description Registers a new user as long as all fields are valid and the user and email are unique.

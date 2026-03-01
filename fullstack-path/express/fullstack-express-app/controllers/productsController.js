@@ -21,17 +21,22 @@ export async function getProducts(req, res) {
     db = await dbConnection();
 
     let query = `SELECT * FROM products`;
+    const conditions = [];
     const params = [];
 
     if (req.query.genre) {
-      query += ` WHERE genre = ?`;
+      conditions.push(`genre = ?`);
       params.push(req.query.genre);
     }
 
     if (req.query.search) {
-      query += ` WHERE (title LIKE ? OR artist LIKE ? OR genre LIKE ?)`;
+      conditions.push(`(title LIKE ? OR artist LIKE ? OR genre LIKE ?)`);
       const search = `%${req.query.search}%`;
       params.push(search, search, search);
+    }
+
+    if (conditions.length) {
+      query += ` WHERE ${conditions.join(" AND ")}`;
     }
 
     const data = await db.all(query, params);
