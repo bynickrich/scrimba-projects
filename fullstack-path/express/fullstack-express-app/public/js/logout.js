@@ -1,10 +1,10 @@
 export async function logout() {
   try {
-    const res = await fetch('/api/auth/logout', { method: 'POST' })
+    const res = await fetch("/api/auth/logout", { method: "POST" });
     if (res.ok) {
-      window.location.href = '/'
+      window.location.href = "/";
     }
   } catch (err) {
-    console.log('failed to log out', err)
+    console.log("failed to log out", err);
   }
 }

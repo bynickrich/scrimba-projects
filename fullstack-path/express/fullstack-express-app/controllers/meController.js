@@ -8,7 +8,9 @@ export async function getCurrentUser(req, res) {
       return res.json({ isLoggedIn: false });
     }
 
-    const user = await db.get(`SELECT name FROM users WHERE id = ?`, [req.session.userId]);
+    const user = await db.get(`SELECT name FROM users WHERE id = ?`, [
+      req.session.userId,
+    ]);
 
     res.status(201).json({ isLoggedIn: true, name: user.name });
   } catch (e) {

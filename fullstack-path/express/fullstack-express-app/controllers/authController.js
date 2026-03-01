@@ -41,7 +41,9 @@ export async function registerUser(req, res) {
     const testUnique = await db.all(query, [payload.username, payload.email]);
 
     if (testUnique.length) {
-      return res.status(400).json({ error: `Email or username already in use.` });
+      return res
+        .status(400)
+        .json({ error: `Email or username already in use.` });
     }
 
     const { name, email, username, password } = payload;
