@@ -16,9 +16,9 @@ async function seedTable() {
 
     await db.exec("COMMIT");
     console.log("All records inserted");
-  } catch (e) {
+  } catch (err) {
     await db.exec("ROLLBACK");
-    console.error(e);
+    console.error(err);
   } finally {
     await db.close();
     console.log("Connection closed");

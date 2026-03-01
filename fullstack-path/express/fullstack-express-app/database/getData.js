@@ -8,8 +8,8 @@ async function getData() {
     const params = ["The Clouds"];
     const products = await db.all(query, params);
     console.log(products);
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
   }
 }
 

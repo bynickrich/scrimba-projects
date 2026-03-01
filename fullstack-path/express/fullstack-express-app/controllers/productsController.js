@@ -8,8 +8,8 @@ export async function getGenres(_, res) {
     const query = `SELECT DISTINCT genre FROM products`;
     const data = await db.all(query);
     return res.status(200).json(data.map((item) => item.genre));
-  } catch (e) {
-    res.status(500).json({ error: "Failed to fetch genres", details: e });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch genres", details: err });
   } finally {
     if (db) await db.close();
   }
@@ -41,8 +41,8 @@ export async function getProducts(req, res) {
 
     const data = await db.all(query, params);
     return res.status(200).json(data);
-  } catch (e) {
-    res.status(500).json({ error: "Failed to fetch products", details: e });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products", details: err });
   } finally {
     if (db) await db.close();
   }

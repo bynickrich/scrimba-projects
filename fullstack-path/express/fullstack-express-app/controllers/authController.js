@@ -59,8 +59,8 @@ export async function registerUser(req, res) {
     req.session.userId = result.lastID;
 
     res.status(201).json({ message: "User registered" });
-  } catch (e) {
-    res.status(500).json({ error: `Registration failed: ${e}` });
+  } catch (err) {
+    res.status(500).json({ error: `Registration failed: ${err}` });
   } finally {
     if (db) await db.close();
   }
@@ -106,8 +106,8 @@ export async function loginUser(req, res) {
 
     req.session.userId = result.id;
     res.json({ message: "Logged In" });
-  } catch (e) {
-    res.status(500).json({ error: `Log in failed: ${e}` });
+  } catch (err) {
+    res.status(500).json({ error: `Log in failed: ${err}` });
   } finally {
     if (db) await db.close();
   }

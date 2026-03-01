@@ -33,8 +33,8 @@ export async function addToCart(req, res) {
       [req.session.userId, productId],
     );
     res.json({ message: "Added to cart" });
-  } catch (e) {
-    res.status(500).json({ error: `Adding to cart failed: ${e}` });
+  } catch (err) {
+    res.status(500).json({ error: `Adding to cart failed: ${err}` });
   } finally {
     if (db) await db.close();
   }

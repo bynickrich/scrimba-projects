@@ -13,8 +13,8 @@ export async function getCurrentUser(req, res) {
     ]);
 
     res.json({ isLoggedIn: true, name: user.name });
-  } catch (e) {
-    console.error("getCurrentUser error:", e);
+  } catch (err) {
+    console.error("getCurrentUser error:", err);
     res.status(500).json({ error: "Internal server error" });
   } finally {
     if (db) await db.close();
