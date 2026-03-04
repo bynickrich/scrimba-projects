@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Dashboard from "./Dashboard";
 import Header from "./Header";
 
@@ -5,7 +6,9 @@ function App() {
   return (
     <>
       <Header />
-      <Dashboard />
+      <Suspense fallback={<p>Loading metrics...</p>}>
+        <Dashboard />
+      </Suspense>
     </>
   );
 }
