@@ -1,7 +1,9 @@
-import "@testing-library/jest-dom/vitest";
-import { afterAll, afterEach, beforeAll } from "vitest";
+import * as matchers from "@testing-library/jest-dom/matchers";
+import { afterAll, afterEach, beforeAll, expect } from "vitest";
+
+expect.extend(matchers);
 import { cleanup } from "@testing-library/react";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 
 // Prepare data
@@ -17,8 +19,8 @@ const memes = {
 
 // Define handles using MSW
 export const restHandlers = [
-  rest.get("https://api.imgfli.com/get_memes", (req, res, ctx) => {
-    return res(ctx.json(memes));
+  http.get("https://api.imgflip.com/get_memes", () => {
+    return HttpResponse.json(memes);
   }),
 ];
 

@@ -5,6 +5,7 @@ export default function Main() {
     topText: "One does not simply",
     bottomText: "Walk into Mordor",
     imageUrl: "https://i.imgflip.com/1bij.jpg",
+    imageAlt: "One Does Not Simply",
   });
   const [allMemes, setAllMemes] = useState([]);
 
@@ -17,9 +18,11 @@ export default function Main() {
   function getMemeImage() {
     const randomNumber = Math.floor(Math.random() * allMemes.length);
     const newMemeUrl = allMemes[randomNumber].url;
+    const newMemeName = allMemes[randomNumber].name;
     setMeme((prevMeme) => ({
       ...prevMeme,
       imageUrl: newMemeUrl,
+      imageAlt: newMemeName,
     }));
   }
 
@@ -58,7 +61,7 @@ export default function Main() {
         <button onClick={getMemeImage}>Get a new meme image 🖼</button>
       </div>
       <div className="meme">
-        <img src={meme.imageUrl} crossOrigin="anonymous" alt="troll face" />
+        <img src={meme.imageUrl} crossOrigin="anonymous" alt={meme.imageAlt} />
         <span className="top">{meme.topText}</span>
         <span className="bottom">{meme.bottomText}</span>
       </div>

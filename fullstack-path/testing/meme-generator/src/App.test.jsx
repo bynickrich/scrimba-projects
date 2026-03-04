@@ -31,4 +31,20 @@ describe("App", () => {
     // Assert
     expect(screen.getByText("Code without coffee")).toBeInTheDocument();
   });
+
+  test("Fetch meme on press", async () => {
+    // Arrange
+    const user = userEvent.setup();
+    render(<App />);
+    const newMemeBtn = screen.getByRole("button");
+
+    // Act
+    await user.pointer(newMemeBtn);
+    await user.click(newMemeBtn);
+
+    // Assert
+    expect(screen.getAllByRole("img")[1].src).toBe(
+      "https://i.imgflip.com/1c1uej.jpg",
+    );
+  });
 });
