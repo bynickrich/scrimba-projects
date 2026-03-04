@@ -10,10 +10,7 @@
   },
   "ignorePatterns": ["dist"],
   "rules": {
-    "no-unused-vars": [
-      "error",
-      { "varsIgnorePattern": "^[A-Z_]" }
-    ],
+    "no-unused-vars": ["error", { "varsIgnorePattern": "^[A-Z_]" }],
     "react/rules-of-hooks": "error",
     "react/jsx-no-duplicate-props": "error",
     "react/no-direct-mutation-state": "error",
