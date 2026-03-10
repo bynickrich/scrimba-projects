@@ -7,11 +7,32 @@ function Dashboard() {
 
   useEffect(() => {
     fetchMetrics();
+    const channel = supabase
+      .channel("deal-changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "sales_deals",
+        },
+        (payload) => {
+          console.log(payload.new);
+        },
+      )
+      .subscribe();
+
+    // Clean up subscription
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   async function fetchMetrics() {
     try {
-      const { data, error } = await supabase.from("sales_deals").select("name, value.sum()");
+      const { data, error } = await supabase
+        .from("sales_deals")
+        .select("name, value.sum()");
       if (error) throw error;
       setMetrics(data);
     } catch (error) {
