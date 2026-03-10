@@ -1,0 +1,16 @@
+{
+  "languages": {
+    "JavaScript": {
+      "language_servers": ["oxlint", "!vtsls", "!harper-ls", "!eslint", "..."]
+    },
+    "JSX": {
+      "language_servers": ["oxlint", "!vtsls", "!harper-ls", "!eslint", "..."]
+    },
+    "TypeScript": {
+      "language_servers": ["oxlint", "!vtsls", "!harper-ls", "!eslint", "..."]
+    },
+    "TSX": {
+      "language_servers": ["oxlint", "!vtsls", "!harper-ls", "!eslint", "..."]
+    }
+  }
+}

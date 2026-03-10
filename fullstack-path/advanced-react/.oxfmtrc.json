@@ -1,5 +1,3 @@
 {
-  "$schema": "https://raw.githubusercontent.com/nicolo-ribaudo/oxc/nicolo/oxfmt-config/npm/oxfmt/configuration_schema.json",
-  "indentStyle": "space",
-  "indentWidth": 2
+  "ignorePatterns": []
 }
