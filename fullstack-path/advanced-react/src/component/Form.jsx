@@ -1,5 +1,5 @@
 import { useActionState } from "react";
-import supabase from "../utils/supabase";
+import supabase from "../../utils/supabase";
 
 function Form({ metrics }) {
   const [error, submitAction, isPending] = useActionState(
