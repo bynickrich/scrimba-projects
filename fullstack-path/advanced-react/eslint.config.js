@@ -14,7 +14,7 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
   },
   pluginReact.configs.flat.recommended,
-  { rules: { "react/react-in-jsx-scope": "off" } },
+  { rules: { "react/react-in-jsx-scope": "off", "react/prop-types": "off" } },
   {
     files: ["**/*.json"],
     plugins: { json },

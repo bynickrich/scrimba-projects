@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Chart } from "react-charts";
+import Form from "./Form";
 import supabase from "../utils/supabase";
 
 function Dashboard() {
@@ -18,6 +19,7 @@ function Dashboard() {
         },
         (payload) => {
           console.log(payload.new);
+          fetchMetrics();
         },
       )
       .subscribe();
@@ -96,6 +98,7 @@ function Dashboard() {
           />
         )}
       </div>
+      <Form metrics={metrics} />
     </div>
   );
 }
