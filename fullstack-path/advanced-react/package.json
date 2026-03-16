@@ -7,10 +7,9 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "fmt": "prettier --write .",
-    "fmt:check": "prettier --check ."
+    "lint": "oxlint .",
+    "fmt": "oxfmt .",
+    "fmt:check": "oxfmt --check ."
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.98.0",
@@ -20,17 +19,15 @@
     "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
-    "@eslint/css": "^1.0.0",
-    "@eslint/js": "^10.0.1",
-    "@eslint/json": "^1.1.0",
-    "@eslint/markdown": "^7.5.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
-    "eslint": "^10.0.3",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.4.0",
-    "prettier": "^3.8.1",
+    "oxfmt": "latest",
+    "oxlint": "latest",
     "vite": "^7.3.1"
+  },
+  "optionalDependencies": {
+    "@oxfmt/binding-darwin-arm64": "^0.41.0",
+    "@oxlint/binding-darwin-arm64": "^1.56.0"
   }
 }

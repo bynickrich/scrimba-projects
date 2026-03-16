@@ -1,37 +1,31 @@
-import { useActionState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useActionState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-const Signin = () => {
-
-  const navigate = useNavigate()
-  const { signInUser } = useAuth()
+const Signup = () => {
+  const { signInUser } = useAuth();
+  const navigate = useNavigate();
 
   const [error, submitAction, isPending] = useActionState(
-    async (prevState, formData) => {
-      const user = {
-        email: formData.get("email"),
-        password: formData.get("password"),
-      };
+    async (previousState, formData) => {
+      const email = formData.get('email');
+      const password = formData.get('password');
 
-      // 2. Call sign in function
-      const { success, data, error: signInError } = await signInUser(user.email, user.password) // sign in function (email, password)
+      const {
+        success,
+        data,
+        error: signInError,
+      } = await signInUser(email, password);
 
-      // 3. Handle known errors (return error)
       if (signInError) {
-        return new Error(signInError)
+        return new Error(signInError);
       }
-      // 4. Handle success (e.g. redirect, return null)
       if (success && data?.session) {
-        // Navigate to dashboard
-        navigate("/dashboard")
-        return null
+        navigate('/dashboard');
+        return null;
       }
-
-      // 5. Handle any other errors
-      return null
-    },
-    null,
+      return null;
+    }, null
   );
 
   return (
@@ -40,20 +34,18 @@ const Signin = () => {
       <div className="sign-form-container">
         <form
           action={submitAction}
-          aria-label="Sign in form"
+          aria-label="Sign up form"
           aria-describedby="form-description"
         >
           <div id="form-description" className="sr-only">
-            Use this form to sign in to your account. Enter your email and
+            Use this form to sign up for an account. Enter your email and
             password.
           </div>
 
-          <h2 className="form-title">Sign in</h2>
+          <h2 className="form-title">Sign up</h2>
           <p>
-            Don&apost have an account yet?
-            {/*<Link className="form-link">*/}
+            Don't have an account yet?{' '}
             Sign up
-            {/*</Link>*/}
           </p>
 
           <label htmlFor="email">Email</label>
@@ -66,7 +58,7 @@ const Signin = () => {
             required
             aria-required="true"
             aria-invalid={error ? 'true' : 'false'}
-            aria-describedby={error ? 'signin-error' : undefined}
+            aria-describedby={error ? 'signup-error' : undefined}
             disabled={isPending}
           />
 
@@ -80,21 +72,27 @@ const Signin = () => {
             required
             aria-required="true"
             aria-invalid={error ? 'true' : 'false'}
-            aria-describedby={error ? 'signin-error' : undefined}
+            aria-describedby={error ? 'signup-error' : undefined}
             disabled={isPending}
           />
 
           <button
             type="submit"
+            disabled={isPending}
             className="form-button"
             aria-busy={isPending}
           >
-            Sign In
-            {isPending ? 'Signing In' : 'Sign In'}
+            {isPending ? 'Signing up...' : 'Sign up'}
           </button>
 
           {error && (
-            <div id="signin-error" role="alert" className="sign-form-error-message">{error.message}</div>
+            <div
+              id="signup-error"
+              role="alert"
+              className="sign-form-error-message"
+            >
+              {error.message}
+            </div>
           )}
         </form>
       </div>
@@ -102,4 +100,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
