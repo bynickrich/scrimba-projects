@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import supabase from "../../utils/supabase";
+import { data } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -21,7 +22,6 @@ export const AuthContextProvider = ({ children }) => {
 
   const handleAuthChange = (_event, session) => {
     setSession(session);
-    console.log(`Session changed: ${session}`);
   };
 
   useEffect(() => {
@@ -57,9 +57,37 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
+  // Sign out
+  const signOutUser = async () => {
+    try {
+      const { error } = await supabase.auth.signOut()
+
+      if (error) {
+        console.error('Supabase sign out error:', error.message)
+        return { success: false, error: error.message }
+      }
+
+      console.log('Supabase sign out success')
+      return { success: true }
+    } catch (error) {
+      console.error('Unepected error during sign in:', error.message)
+      return { success: false, error: 'An unexpected error accord, please try again' }
+    }
+  }
+
+  // Get user information
+  // const getUserDetails = async () => {
+  //   try {
+  //     const { data: { user } } = await supabase.auth.getUser()
+
+  //   } catch (error) {
+
+  //   }
+  // }
+
 
   return (
-    <AuthContext.Provider value={{ session, signInUser }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ session, signInUser, signOutUser }}>{children}</AuthContext.Provider>
   );
 };
 

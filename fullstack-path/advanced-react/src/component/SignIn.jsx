@@ -1,6 +1,7 @@
 import { useActionState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 
 const Signin = () => {
 
@@ -50,10 +51,10 @@ const Signin = () => {
 
           <h2 className="form-title">Sign in</h2>
           <p>
-            Don&apost have an account yet?
-            {/*<Link className="form-link">*/}
-            Sign up
-            {/*</Link>*/}
+            Don't have an account yet?{' '}
+            <Link className="form-link" to={"/signup"}>
+              Sign up
+            </Link>
           </p>
 
           <label htmlFor="email">Email</label>
@@ -89,7 +90,6 @@ const Signin = () => {
             className="form-button"
             aria-busy={isPending}
           >
-            Sign In
             {isPending ? 'Signing In' : 'Sign In'}
           </button>
 
