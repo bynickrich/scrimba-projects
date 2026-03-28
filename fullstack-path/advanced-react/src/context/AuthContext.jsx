@@ -1,11 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import supabase from "../../utils/supabase";
-import { data } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  // Seesion state (user info, sign-status)
+  // Session state (user info, sign-status)
   const [session, setSession] = useState(undefined);
 
   const getInitialSession = async () => {
@@ -25,7 +24,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // 1. Check on first render for a sessonion (getSession())
+    // 1. Check on first render for a session (getSession())
 
     getInitialSession();
 
@@ -52,7 +51,7 @@ export const AuthContextProvider = ({ children }) => {
       console.log('Supabase sign in success:', data)
       return { success: true, data }
     } catch (error) {
-      console.error('Unepected error during sign in:', error.message)
+      console.error('Unexpected error during sign in:', error.message)
       return { success: false, error: 'An unexpected error accord, please try again' }
     }
   }
@@ -70,7 +69,7 @@ export const AuthContextProvider = ({ children }) => {
       console.log('Supabase sign out success')
       return { success: true }
     } catch (error) {
-      console.error('Unepected error during sign in:', error.message)
+      console.error('Unexpected error during sign in:', error.message)
       return { success: false, error: 'An unexpected error accord, please try again' }
     }
   }

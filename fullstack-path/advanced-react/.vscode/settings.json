@@ -11,36 +11,39 @@
   // JS/JSX: use VS Code built-in (oxfmt VS Code formatter doesn't support these yet)
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "[javascriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
 
   // Format on save for language IDs the oxc extension actually registers as a formatter
   "[typescript]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "[json]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "[jsonc]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "[css]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "[markdown]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
-    "editor.formatOnSave": true
-  }
+    "editor.formatOnSave": true,
+  },
+  "conventionalCommits.scopes": [
+    "Auth Redirect, Protected Route, Display email in header",
+  ],
 }
