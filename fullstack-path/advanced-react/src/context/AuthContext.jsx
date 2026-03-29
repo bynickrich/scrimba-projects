@@ -6,6 +6,7 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   // Session state (user info, sign-status)
   const [session, setSession] = useState(undefined);
+  const [users, setUsers] = useState([])
 
   const getInitialSession = async () => {
     try {
@@ -34,6 +35,29 @@ export const AuthContextProvider = ({ children }) => {
     // Clean up
     return () => data.subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!session) return;
+
+    // Fetch user profiles
+    const fetchUsers = async () => {
+      try {
+        const { data, error } = await supabase.from('user_profiles').select(`
+            id,
+            name,
+            account_type
+          `)
+
+        if (error) { throw error }
+        setUsers(data)
+      } catch (error) {
+        console.error('Error fetching users', error.message)
+      }
+    }
+
+    fetchUsers()
+  }, [session])
+
 
   // Auth functions (signin, signup, logout)
   const signInUser = async (email, password) => {
@@ -98,8 +122,10 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
+
+
   return (
-    <AuthContext.Provider value={{ session, signInUser, signOutUser, signUpNewUser }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ session, signInUser, signOutUser, signUpNewUser, users }}>{children}</AuthContext.Provider>
   );
 };
 
