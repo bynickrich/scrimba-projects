@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 const Signin = () => {
 
   const navigate = useNavigate()
-  const { signUpNewUser } = useAuth()
+  const { signInUser } = useAuth()
 
   const [error, submitAction, isPending] = useActionState(
     async (prevState, formData) => {
@@ -15,12 +15,10 @@ const Signin = () => {
         password: formData.get("password"),
       };
 
-      // 2. Call sign up function
-      const { success, data, error: signUpError } = await signUpNewUser(user.email, user.password) // sign up function (email, password)
+      const { success, data, error: signInError } = await signInUser(user.email, user.password)
 
-      // 3. Handle known errors (return error)
-      if (signUpError) {
-        return new Error(signUpError)
+      if (signInError) {
+        return new Error(signInError)
       }
       // 4. Handle success (e.g. redirect, return null)
       if (success && data?.session) {

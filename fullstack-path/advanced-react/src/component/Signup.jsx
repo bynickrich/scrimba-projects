@@ -3,22 +3,24 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
-  const { signInUser } = useAuth();
+  const { signUpNewUser } = useAuth();
   const navigate = useNavigate();
 
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
       const email = formData.get('email');
       const password = formData.get('password');
+      const name = formData.get('name')
+      const accountType = formData.get('account-type')
 
       const {
         success,
         data,
-        error: signInError,
-      } = await signInUser(email, password);
+        error: signUpError,
+      } = await signUpNewUser(email, password, name, accountType);
 
-      if (signInError) {
-        return new Error(signInError);
+      if (signUpError) {
+        return new Error(signUpError);
       }
       if (success && data?.session) {
         navigate('/dashboard');
@@ -38,17 +40,31 @@ const Signup = () => {
           aria-describedby="form-description"
         >
           <div id="form-description" className="sr-only">
-            Use this form to sign up for an account. Enter your email and
+            Use this form to create a new account. Enter your email and
             password.
           </div>
 
           <h2 className="form-title">Sign up today!</h2>
           <p>
-            Don't have an account yet?{' '}
-            <Link className="form-link" to={"/"}>
+            Already have an account?{' '}
+            <Link className="form-link" to="/">
               Sign in
             </Link>
           </p>
+
+          <label htmlFor="name">Name</label>
+          <input
+            className="form-input"
+            type="text"
+            name="name"
+            id="name"
+            placeholder=""
+            required
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? 'signup-error' : undefined}
+            disabled={isPending}
+          />
 
           <label htmlFor="email">Email</label>
           <input
@@ -78,21 +94,39 @@ const Signup = () => {
             disabled={isPending}
           />
 
+          <fieldset
+            className="form-fieldset"
+            aria-label="Select your role"
+          >
+            <legend>Select your role</legend>
+            <div className="radio-group">
+              <label>
+                <input
+                  type="radio"
+                  name="account-type"
+                  value="admin"
+                  required
+                />{' '}
+                Admin
+              </label>
+              <label>
+                <input type="radio" name="account-type" value="rep" required />{' '}
+                Sales Rep
+              </label>
+            </div>
+          </fieldset>
+
           <button
             type="submit"
-            disabled={isPending}
             className="form-button"
+            disabled={isPending}
             aria-busy={isPending}
           >
-            {isPending ? 'Signing up...' : 'Sign up'}
+            {isPending ? 'Signing up...' : 'Sign Up'}
           </button>
 
           {error && (
-            <div
-              id="signup-error"
-              role="alert"
-              className="sign-form-error-message"
-            >
+            <div id="signup-error" role="alert" className="sign-form-error-message">
               {error.message}
             </div>
           )}

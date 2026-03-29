@@ -74,11 +74,17 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
-  const signUpNewUser = async (email, password) => {
+  const signUpNewUser = async (email, password, name, accountType) => {
     try {
       const { data, error } = await supabase.auth.signUp({
         email: email.toLowerCase(),
         password: password,
+        options: {
+          data: {
+            name,
+            account_type: accountType
+          }
+        }
       });
       if (error) {
         console.error('Supabase sign-up error:', error.message);
