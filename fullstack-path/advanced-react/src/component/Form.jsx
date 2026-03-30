@@ -2,8 +2,8 @@ import { useActionState } from "react";
 import supabase from "../../utils/supabase";
 import { useAuth } from "../context/AuthContext";
 
-function Form({ metrics }) {
-  const { users } = useAuth()
+function Form() {
+  const { users, session } = useAuth()
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
       const submittedName = formData.get('name')
@@ -28,6 +28,8 @@ function Form({ metrics }) {
     null, // Initial state
   );
 
+  const currentUser = users.find(u => u.id === session?.user?.id)
+
   const generateOptions = () => {
     return users.map((user) => (
       <option key={user.id} value={user.name}>
@@ -48,19 +50,31 @@ function Form({ metrics }) {
           the amount.
         </div>
 
-        <label htmlFor="deal-name">
+        {currentUser?.account_type === 'rep' ? <label htmlFor="deal-name">
+          Name:
+          <input
+            id="deal-name"
+            type="text"
+            name="name"
+            value={currentUser?.name || ''}
+            readOnly
+            className="rep-name-input"
+            aria-label="Sales representative name"
+            aria-readonly="true"
+          />
+        </label> : <label htmlFor="deal-name">
           Name:
           <select
             id="deal-name"
             name="name"
-            defaultValue={metrics?.[0]?.name || ""}
+            defaultValue={users?.[0]?.name || ""}
             aria-required="true"
             aria-invalid={error ? "true" : "false"}
             disabled={isPending}
           >
             {generateOptions()}
           </select>
-        </label>
+        </label>}
 
         <label htmlFor="deal-value">
           Amount: $
