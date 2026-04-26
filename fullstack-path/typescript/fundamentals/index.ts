@@ -1,4 +1,5 @@
 type Pizza = {
+  id: number
   name: string
   price: number
 }
@@ -9,22 +10,25 @@ type Order = {
   status: 'ordered' | 'completed'
 }
 
-const menu: Pizza[] = [
-  { name: 'Margherita', price: 8 },
-  { name: 'Pepperoni', price: 10 },
-  { name: 'Hawaiian', price: 9 },
-  { name: 'Veggie', price: 7 },
-]
-
 let cashInRegister = 100
 const orderQueue: Order[] = []
 let nextOrderId = 1
+let nextPizzaId = 1
 
-function addNewPizza(pizzaObj: Pizza) {
-  menu.push(pizzaObj)
+const menu: Pizza[] = [
+  { id: nextPizzaId++, name: 'Margherita', price: 8 },
+  { id: nextPizzaId++, name: 'Pepperoni', price: 10 },
+  { id: nextPizzaId++, name: 'Hawaiian', price: 9 },
+  { id: nextPizzaId++, name: 'Veggie', price: 7 },
+]
+
+function addNewPizza(pizzaObj: Omit<Pizza, 'id'>) {
+  const newPizza = { id: nextPizzaId++, ...pizzaObj }
+  menu.push(newPizza)
+  return newPizza
 }
 
-function placeOrder(pizzaName: string) {
+function placeOrder(pizzaName: string): Order {
   const pizza = menu.find((p) => p.name === pizzaName)
   if (pizza) {
     cashInRegister += pizza.price
@@ -40,7 +44,20 @@ function placeOrder(pizzaName: string) {
   }
 }
 
-function completeOrder(orderId: number) {
+function getPizzaDetails(identifier: Pizza['id'] | Pizza['name']) {
+  const match =
+    typeof identifier === 'number'
+      ? (p: Pizza) => p.id === identifier
+      : (p: Pizza) => p.name === identifier.toLowerCase()
+
+  const pizza = menu.find(match)
+  if (!pizza) {
+    throw new Error(`Pizza not found: ${identifier}`)
+  }
+  return pizza
+}
+
+function completeOrder(orderId: number): Order {
   const order = orderQueue.find((o) => o.id === orderId)
   if (order) {
     order.status = 'completed'
