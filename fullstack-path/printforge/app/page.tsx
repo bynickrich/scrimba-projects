@@ -1,31 +1,33 @@
-import Image from "next/image";
+import Link from "next/link"
+import HeroImage from "@/public/hero-image.png"
 
 export default function Home() {
   return (
-    <main className="container mx-auto">
-      <section className="flex flex-col gap-10 items-start lg:flex-row lg:p-10 lg:gap-20 lg:items-center lg:justify-between">
-        <div className="flex flex-col gap-5 lg:gap-5 lg:max-w-150">
-          <p className="hidden md:block uppercase font-body tracking-wider self-start">
-            your go-to platform for 3d printing files
+    <main>
+      <section className="flex flex-col-reverse items-center justify-between gap-8 px-6 py-12 mx-auto md:flex-row max-w-7xl">
+        <div className="flex-1 space-y-6">
+          <p className="hidden text-sm text-gray-600 uppercase md:block">
+            Your go-to platform for 3D printing files
           </p>
-          <h1 className="font-bold text-[2.5rem] text-neutral-900 leading-tight font-display">
-            Discover what&apos;s possible with 3D printing
+          <h1 className="text-4xl font-bold md:text-5xl">
+            Discover what's possible with 3D Printing
           </h1>
-          <p className="text-2xl text-neutral-900 leading-tight font-body">
-            Join our community of creators and explore a vast library of user-submitted models.
+          <p className="text-lg text-gray-600">
+            Join our community of creators and explore a vast
+            library of user-submitted models.
           </p>
-          <button className="uppercase font-semibold text-xl text-neutral-900 p-3 border-2 border-neutral-900 h-12 leading-none font-body self-start lg:mt-">
-            Browse Models
-          </button>
+
+          <div className="flex gap-4">
+            <Link
+              href="/3d-models"
+              className="px-6 py-3 text-black transition duration-100 bg-white border-2 border-black hover:bg-black hover:text-white"
+            >
+              Browse Models
+            </Link>
+          </div>
         </div>
-        <Image
-          src="/hero-image.webp"
-          alt="3D printed buildings, statues, and other objects"
-          width={627}
-          height={627}
-          loading="eager"
-        />
+        <img src={HeroImage.src} className="w-[350px] h-auto rounded-lg" alt="Hero Image" />
       </section>
     </main>
-  );
+  )
 }

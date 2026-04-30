@@ -1,24 +1,27 @@
 import "./globals.css";
-import { Montserrat_Alternates, Albert_Sans } from "next/font/google";
+import type { RootLayoutProps } from "@/app/types"
+import { Albert_Sans, Montserrat_Alternates } from "next/font/google"
+import Navbar from "@/app/components/Navbar"
 
-const montserrat = Montserrat_Alternates({
-  weight: "700",
+const albertSans = Albert_Sans({
   subsets: ["latin"],
-  variable: "--font-montserrat",
-});
-const albert = Albert_Sans({
-  subsets: ["latin"],
-  variable: "--font-albert",
-});
+  display: "swap"
+})
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const montserratAlternates = Montserrat_Alternates({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-montserrat-alternates"
+})
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${albert.variable}`}>
-      <body>{children}</body>
+    <html lang="en">
+      <body className={`${albertSans.className} ${montserratAlternates.variable}`}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
