@@ -1,0 +1,60 @@
+{
+  "prettier": { "allowed": true },
+  "lsp": {
+    "eslint": {
+      "settings": {
+        "workingDirectory": { "mode": "auto" }
+      }
+    }
+  },
+  "languages": {
+    "TypeScript": {
+      "language_servers": ["vtsls", "eslint", "!typescript-language-server", "!oxlint", "!oxfmt", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": true },
+      "formatter": [{ "code_action": "source.fixAll.eslint" }, "prettier"]
+    },
+    "TSX": {
+      "language_servers": ["vtsls", "eslint", "!typescript-language-server", "!oxlint", "!oxfmt", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": true },
+      "formatter": [{ "code_action": "source.fixAll.eslint" }, "prettier"]
+    },
+    "JavaScript": {
+      "language_servers": ["vtsls", "eslint", "!typescript-language-server", "!oxlint", "!oxfmt", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": true },
+      "formatter": [{ "code_action": "source.fixAll.eslint" }, "prettier"]
+    },
+    "JSX": {
+      "language_servers": ["vtsls", "eslint", "!typescript-language-server", "!oxlint", "!oxfmt", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": true },
+      "formatter": [{ "code_action": "source.fixAll.eslint" }, "prettier"]
+    },
+    "JSON": {
+      "language_servers": ["!oxfmt", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": true },
+      "formatter": "prettier"
+    },
+    "JSONC": {
+      "language_servers": ["!oxfmt", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": true },
+      "formatter": "prettier"
+    },
+    "CSS": {
+      "language_servers": ["tailwindcss-intellisense-css", "!vscode-css-language-server", "!oxfmt", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": true },
+      "formatter": "prettier"
+    },
+    "HTML": {
+      "language_servers": ["!oxfmt", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": true },
+      "formatter": "prettier"
+    }
+  }
+}
