@@ -1,22 +1,36 @@
-import Link from "next/link"
-import { getAllModels } from "@/app/lib/models"
-import type { Model } from "@/app/types"
-import ModelCard from "@/app/components/ModelCard"
+import ModelsGrid from '@/app/components/ModelsGrid'
+import type { Model, ModelsPageProps } from '@/app/types'
+import { getModels } from '@/app/lib/models'
+import Form from 'next/form'
 
-export default async function ModelsPage() {
-  const models = await getAllModels()
+function normalizeQueryParam(value: string | string[] | undefined): string[] {
+  const values = value === undefined ? [] : Array.isArray(value) ? value : [value]
+
+  return values.map((value) => value.trim().toLowerCase()).filter(Boolean)
+}
+
+function filterModelsByQuery(models: Model[], queries: string[]): Model[] {
+  if (queries.length === 0) return models
+
+  return models.filter((model) => {
+    const searchableText = `${model.name} ${model.description}`.toLowerCase()
+
+    return queries.some((query) => searchableText.includes(query))
+  })
+}
+
+export default async function Page({ searchParams }: ModelsPageProps) {
+  const { query } = await searchParams
+  const models = await getModels()
+  const queries = normalizeQueryParam(query)
+  const filteredModels = filterModelsByQuery(models, queries)
+
   return (
-    <div className="container px-4 py-8 mx-auto">
-      <h1 className="mb-8 text-3xl font-bold">All Models</h1>
-      <div
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        role="region"
-        aria-label="3D Models Gallery"
-      >
-        {models.map((model: Model) => (
-          <ModelCard key={model.id} model={model} />
-        ))}
-      </div>
-    </div>
+    <>
+      <Form action="/3d-models">
+        <input type="text" name="query" placeholder="Search" />
+      </Form>
+      <ModelsGrid title="3D Models" models={filteredModels} />
+    </>
   )
 }

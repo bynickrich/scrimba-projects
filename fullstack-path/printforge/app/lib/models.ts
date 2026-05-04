@@ -1,11 +1,17 @@
-import modelsData from "../data/models.json";
-import type { Model } from "../types";
+import modelsData from "../data/models.json"
+import type { Model, GetModelsParams } from "../types"
 
-export async function getAllModels(): Promise<Model[]> {
+export async function getModels({ category }: GetModelsParams = {}): Promise<Model[]> {
   // This is where you'd write code to fetch the list
   // of models from a database. We're mocking that with
   // our JSON array of data in models.json for now.
-  return modelsData;
+  let filteredModels = [...modelsData]
+  if (category) {
+    filteredModels = modelsData.filter(
+      (model: Model) => model.category === category
+    )
+  }
+  return filteredModels
 }
 
 export async function getModelById(id: string | number): Promise<Model> {
@@ -13,10 +19,10 @@ export async function getModelById(id: string | number): Promise<Model> {
   // but we're planning for the future when they'll be fetching
   // from a real data source.
   const foundModel = modelsData.find(
-    (model: Model) => model.id.toString() === id.toString(),
-  );
+    (model: Model) => model.id.toString() === id.toString()
+  )
   if (!foundModel) {
-    throw new Error(`Model with id ${id} not found`);
+    throw new Error(`Model with id ${id} not found`)
   }
-  return foundModel;
+  return foundModel
 }
